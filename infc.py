@@ -20,7 +20,7 @@ def recover_bps(delt, bps, bps_star):
     for b in xrange(bsz):
         seq = []
         _, last_lab = delt[seqlen][b].max(0)
-        last_lab = last_lab[0]
+        last_lab = last_lab#[0]
         curr_idx = seqlen # 1-indexed
         while True:
             last_len = bps[curr_idx][b][last_lab]

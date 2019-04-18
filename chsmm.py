@@ -100,6 +100,9 @@ class HSMM(nn.Module):
         self.lsm = nn.LogSoftmax(dim=1)
         self.zeros = torch.Tensor(1, 1).fill_(-float("inf")) if opt.lse_obj else torch.zeros(1, 1)
         self.lse_obj = opt.lse_obj
+        self.cuda = False
+        opt.cuda = False
+        print opt.cuda
         if opt.cuda:
             self.zeros = self.zeros.cuda()
 
@@ -955,7 +958,7 @@ if __name__ == "__main__":
 
     saved_args, saved_state = None, None
     if len(args.load) > 0:
-        saved_stuff = torch.load(args.load)
+        saved_stuff = torch.load(args.load, map_location='cpu')
         saved_args, saved_state = saved_stuff["opt"], saved_stuff["state_dict"]
         for k, v in args.__dict__.iteritems():
             if k not in saved_args.__dict__:
