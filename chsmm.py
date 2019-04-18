@@ -1034,7 +1034,7 @@ if __name__ == "__main__":
             beta, beta_star = infc.just_bwd(trans_logps, fwd_obs_logps,
                                             len_logprobs, constraints=cidxs)
             log_marg = logsumexp1(beta_star[0] + init_logps).sum() # bsz x 1 -> 1
-            neglogev -= log_marg.data[0]
+            neglogev -= log_marg.data#[0]
             lossvar = -log_marg/bsz
             lossvar.backward()
             torch.nn.utils.clip_grad_norm(net.parameters(), args.clip)
